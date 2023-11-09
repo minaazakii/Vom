@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Api\Store;
+namespace App\Http\Requests\Api\Auth;
 
 use App\Helpers\ErrorHelper;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorestoreRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,8 @@ class StorestoreRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'user_id'=>'required|exists:users,id',
-            'include_vat_in_price' => 'boolean',
-            'vatType'=> 'in:percentage,fixed',
-            'value'=>'required_if:vatType',
-            'shipping_cost'=>'required'
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required'
         ];
     }
 }
