@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Product\ProductController;
 use App\Http\Controllers\Api\Store\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,8 +25,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/auth/register',[AuthController::class,'register']);
 Route::post('/auth/login',[AuthController::class,'login']);
 
-//Store Routes
+
 Route::group(['middleware'=>'checkToken'],function(){
 
-    Route::apiResource('store',StoreController::class)->only('store');
+    //Stores Routes
+    Route::apiResource('stores',StoreController::class)->only('store');
+
+    //Route Products
+    Route::apiResource('products',ProductController::class)->only('store');
 });
