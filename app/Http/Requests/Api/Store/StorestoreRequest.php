@@ -23,10 +23,9 @@ class StorestoreRequest extends FormRequest
     {
         return [
             'name'=>'required',
-            'user_id'=>'required|exists:users,id',
-            'include_vat_in_price' => 'boolean',
-            'vatType'=> 'in:percentage,fixed',
-            'value'=>'required_if:vatType',
+            'include_vat_in_price' => 'required|boolean',
+            'vatType'=> 'required_if:include_vat_in_price,true|in:percentage,fixed',
+            'value'=>'required_if:include_vat_in_price,true',
             'shipping_cost'=>'required'
         ];
     }

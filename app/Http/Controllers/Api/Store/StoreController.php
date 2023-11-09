@@ -19,8 +19,11 @@ class StoreController extends Controller
 
     public function store(StorestoreRequest $request)
     {
-        $store =  Store::create($request->only(['user_id','name']));
-        $this->storeService->createStoreSetting($store,$request);
-        return response()->json(['message'=>'Store Created Successfully']);
+        $store =  Store::create(['name' => $request->name, 'user_id' => auth('sanctum')->id()]);
+        if($request->include_vat_in_price)
+        {
+            $this->storeService->createStoreSetting($store, $request);
+        }
+        return response()->json(['message' => 'Store Created Successfully']);
     }
 }

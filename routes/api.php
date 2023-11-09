@@ -25,4 +25,7 @@ Route::post('/auth/register',[AuthController::class,'register']);
 Route::post('/auth/login',[AuthController::class,'login']);
 
 //Store Routes
-Route::apiResource('store',StoreController::class)->only('store');
+Route::group(['middleware'=>'checkToken'],function(){
+
+    Route::apiResource('store',StoreController::class)->only('store');
+});
